@@ -24,6 +24,23 @@ Carta::Carta(string seme, string nome, string path,int numero, int punteggio) {
 Carta::~Carta() {
 
 }
+
+string Carta::getSeme() {
+    return seme;
+}
+
+string Carta::getNome() {
+    return nome;
+}
+
+int Carta::getNumero() {
+    return numero;
+}
+
+int Carta::getPunteggio() {
+    return punteggio;
+}
+
 void Carta::setSeme(string seme) {
     this->seme = seme;
 }
