@@ -23,7 +23,6 @@ class Carta {
         int getNumero();
         void setPath(string nome, string seme);
         void setPunteggio(int punteggio);
-        string getPath();
         Carta confronta(Carta c2, Carta briscola);
         int operator+(Carta c2);
     friend istream& operator>>(istream& inp, Carta c);
