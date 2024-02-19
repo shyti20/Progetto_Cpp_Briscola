@@ -10,7 +10,7 @@ Napoletano::~Napoletano() {
     delete[] c;
 }
 
-void Napoletano::inizializza() {
+void Napoletano::inizializza() { //inizializza il mazzo di carte
     string numeriCarte[7] = {"due", "tre", "quattro", "cinque", "sei", "sette"};
     for (int i = 0; i < dim; i++) {
         int temp = (i + 1) % 10;
@@ -58,7 +58,7 @@ int Napoletano::getDim() {
     return dim;
 }
 
-Carta Napoletano::operator--() {
+Carta Napoletano::operator--() { //estrae una carta random dal mazzo
     srand(time(NULL));
     int nRand = rand() % 40;
     Carta cartaEstratta = c[nRand];
@@ -71,7 +71,7 @@ Carta Napoletano::operator--() {
     }
     dim--;
     delete[] c;
-    Carta *c = new Carta[dim];
+    c = new Carta[dim];
     for (int i = 0 ; i < dim; i++) {
         c[i] = temp[i];
     }
