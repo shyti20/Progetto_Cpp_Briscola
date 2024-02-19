@@ -14,6 +14,9 @@ class MazzoDiCarte {
         MazzoDiCarte();
         virtual ~MazzoDiCarte();
         virtual void inizializza() = 0;
+        void setDim(int dim);
+        bool operator-(Carta carta);
+        bool operator+(Carta carta); //da implementare
 };
 
 #endif

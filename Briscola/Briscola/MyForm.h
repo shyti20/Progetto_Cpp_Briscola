@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "napoletano.h"
 namespace Briscola {
 
 	using namespace System;
@@ -226,6 +227,7 @@ namespace Briscola {
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->EndInit();
@@ -236,5 +238,9 @@ namespace Briscola {
 
 		}
 #pragma endregion
+private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	Napoletano mazzo;
+	mazzo.inizializza();
+}
 };
 }

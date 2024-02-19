@@ -58,6 +58,7 @@ int Napoletano::getDim() {
     return dim;
 }
 
+
 Carta Napoletano::operator--() { //estrae una carta random dal mazzo
     srand(time(NULL));
     int nRand = rand() % 40;
