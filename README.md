@@ -23,6 +23,6 @@ Everything shown here must be submitted:
 - A document with a breakdown of the working times and the subdivision of the work, if the project is carried out in pairs.
 
 ## Techonologies used
-Techonologies used in the project:
+Techonologies used in this project:
 - C++
 - Visual Studio Code 2022
