@@ -50,6 +50,7 @@ void Napoletano::inizializza() {
             case 3:
                 c[i].setSeme("Coppe");
         }
+        c[i].setPath(c[i].getSeme(), c[i].getNome());
     }
 }
 
