@@ -16,6 +16,11 @@ class Carta {
         void setSeme(string seme);
         void setNome(string nome);
         void setNumero(int numero);
+        string getSeme();
+        string getNome();
+        string getPath();
+        int getPunteggio();
+        int getNumero();
         void setPath(string nome, string seme);
         void setPunteggio(int punteggio);
         string getPath();
