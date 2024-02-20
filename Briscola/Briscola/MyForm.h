@@ -17,9 +17,6 @@ namespace Briscola {
 	{
 	public:
 		MyForm(void);
-		void setCartaPlayer1(string path);
-		void setCartaPlayer2(string path);
-		void setCartaPlayer3(string path);
 		~MyForm();
 	protected:
 

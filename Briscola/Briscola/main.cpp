@@ -17,7 +17,6 @@ void main()
 	mazzo.inizializza();
 	Carta temp = --mazzo;
 	form.setCartaPlayer1(temp.getPath());
-	
 	temp = --mazzo;
 	form.setCartaPlayer2(temp.getPath());
 	temp = --mazzo;

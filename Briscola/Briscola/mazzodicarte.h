@@ -14,9 +14,11 @@ class MazzoDiCarte {
         MazzoDiCarte();
         virtual ~MazzoDiCarte();
         virtual void inizializza() = 0;
-        void setDim(int dim);
-        bool operator-(Carta carta);
-        bool operator+(Carta carta); //da implementare
+        /*pericoloso!, cambia la dimensione ma cancella
+        tutti gli elementi dell'array */
+        void setDim(int dim); 
+        bool operator-(Carta carta); //toglie una carta assicurandosi che sia presente
+        void operator+(Carta carta); //aggiunge una carta
 };
 
 #endif

@@ -10,7 +10,9 @@ RealPlayer::~RealPlayer() {
 }
 
 bool RealPlayer::giocaCarta(Carta carta) {
-	bool flag;
-	flag = mazzo - carta;
-	return true;
+	return mazzo - carta;
+}
+
+void setCarta(int nCarta, Carta carta, MyForm form) {
+	
 }

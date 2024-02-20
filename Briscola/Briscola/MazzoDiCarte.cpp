@@ -9,7 +9,7 @@ MazzoDiCarte::~MazzoDiCarte() {
     delete[] c;
 }
 
-bool MazzoDiCarte::operator-(Carta carta) {
+bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assicurandosi che sia preesente, uso: mazzo - carta
     if (dim <= 0) return false;
     int i;
     for (i = 0; i < dim && carta.getNome() != c[i].getNome() && carta.getSeme() != c[i].getSeme(); i++);
@@ -30,8 +30,19 @@ bool MazzoDiCarte::operator-(Carta carta) {
     return true;
 }
 
-bool MazzoDiCarte::operator+(Carta carta) {
-    //dafare
+void MazzoDiCarte::operator+(Carta carta) { //aggiunge una carta al mazzo, uso: mazzo + carta
+    Carta* temp = new Carta[dim];
+    for (int i = 0; i < dim; i++) {
+        temp[i] = c[i];
+    }
+    delete[] c;
+    dim++;
+    c = new Carta[dim];
+    for (int i = 0; i < dim - 1; i++) {
+        c[i] = temp[i];
+    }
+    delete[] temp;
+    c[dim - 1] = carta;
 }
 
 void MazzoDiCarte::setDim(int dim) { //pericoloso
