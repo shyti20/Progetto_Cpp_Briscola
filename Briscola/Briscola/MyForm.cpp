@@ -24,14 +24,33 @@ Briscola::MyForm::~MyForm() {
 	}
 }
 
-void Briscola::MyForm::setCartaPlayer1(string path){
+void Briscola::MyForm::showCarte(Player &p) {
+	Carta c1 = p.getMazzo().getCarta(1);
+	Carta c2 = p.getMazzo().getCarta(2);
+	Carta c3 = p.getMazzo().getCarta(3);
+	
+	int n1 = imageList1->Images->IndexOfKey(gcnew String(c1.getPath().c_str()));
+	int n2 = imageList1->Images->IndexOfKey(gcnew String(c2.getPath().c_str()));
+	int n3 = imageList1->Images->IndexOfKey(gcnew String(c3.getPath().c_str()));
+	if (n1 == -1) {
+		cartaPlayer1->BackgroundImage = imageList1->Images[0];
+	}
+	else {
+		cartaPlayer1->BackgroundImage = imageList1->Images[n1];
+	}
 
-}
+	if (n2 == -1) {
+		cartaPlayer2->BackgroundImage = imageList1->Images[0];
+	}
+	else {
+		cartaPlayer2->BackgroundImage = imageList1->Images[n2];
+	}
 
-void Briscola::MyForm::setCartaPlayer2(string path) {
-
-}
-
-void Briscola::MyForm::setCartaPlayer3(string path) {
-
+	if (n3 == -1) {
+		cartaPlayer3->BackgroundImage = imageList1->Images[0];
+	}
+	else {
+		cartaPlayer3->BackgroundImage = imageList1->Images[n3];
+	}
+	
 }

@@ -10,6 +10,7 @@ class AiPlayer : public Player {
 		~AiPlayer();
 		bool giocaCarta(Carta carta);
 		Carta scegliCarta();
+		void setCarta(Carta carta);
 };
 
 #endif

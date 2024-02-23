@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "napoletano.h"
+#include "player.h"
 namespace Briscola {
 
 	using namespace System;
@@ -17,9 +18,9 @@ namespace Briscola {
 	{
 	public:
 		MyForm(void);
+		void showCarte(Player &p);
+	private:
 		~MyForm();
-	protected:
-
 	private: 
 		System::Windows::Forms::Button^ cartaPlayer1;
 		System::Windows::Forms::Button^ cartaPlayer2;
@@ -28,11 +29,9 @@ namespace Briscola {
 		System::Windows::Forms::PictureBox^ cartaBack2;
 		System::Windows::Forms::PictureBox^ cartaBack3;
 		System::Windows::Forms::Button^ mazzo;
-
-		System::Windows::Forms::PictureBox^ pictureBox1;
-
+		System::Windows::Forms::PictureBox^ Briscola;
 		System::Windows::Forms::Label^ turnoPlayer;
-		System::Windows::Forms::PictureBox^ pictureBox3;
+		System::Windows::Forms::PictureBox^ carteGiocate;
 		System::Windows::Forms::ImageList^ imageList1;
 		System::ComponentModel::IContainer^ components;
 
@@ -52,42 +51,43 @@ namespace Briscola {
 			this->cartaBack2 = (gcnew System::Windows::Forms::PictureBox());
 			this->cartaBack3 = (gcnew System::Windows::Forms::PictureBox());
 			this->mazzo = (gcnew System::Windows::Forms::Button());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
+			this->Briscola = (gcnew System::Windows::Forms::PictureBox());
+			this->carteGiocate = (gcnew System::Windows::Forms::PictureBox());
 			this->turnoPlayer = (gcnew System::Windows::Forms::Label());
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Briscola))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->carteGiocate))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// cartaPlayer1
 			// 
+			this->cartaPlayer1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer1.BackgroundImage")));
 			this->cartaPlayer1->Location = System::Drawing::Point(203, 687);
 			this->cartaPlayer1->Name = L"cartaPlayer1";
 			this->cartaPlayer1->Size = System::Drawing::Size(127, 203);
 			this->cartaPlayer1->TabIndex = 0;
-			this->cartaPlayer1->Text = L"button1";
 			this->cartaPlayer1->UseVisualStyleBackColor = true;
 			// 
 			// cartaPlayer2
 			// 
+			this->cartaPlayer2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer2.BackgroundImage")));
 			this->cartaPlayer2->Location = System::Drawing::Point(368, 687);
 			this->cartaPlayer2->Name = L"cartaPlayer2";
 			this->cartaPlayer2->Size = System::Drawing::Size(127, 203);
 			this->cartaPlayer2->TabIndex = 1;
-			this->cartaPlayer2->Text = L"button1";
 			this->cartaPlayer2->UseVisualStyleBackColor = true;
 			// 
 			// cartaPlayer3
 			// 
+			this->cartaPlayer3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer3.BackgroundImage")));
+			this->cartaPlayer3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->cartaPlayer3->Location = System::Drawing::Point(538, 687);
 			this->cartaPlayer3->Name = L"cartaPlayer3";
 			this->cartaPlayer3->Size = System::Drawing::Size(127, 203);
 			this->cartaPlayer3->TabIndex = 2;
-			this->cartaPlayer3->Text = L"button1";
 			this->cartaPlayer3->UseVisualStyleBackColor = true;
 			// 
 			// cartaBack1
@@ -129,22 +129,22 @@ namespace Briscola {
 			this->mazzo->Text = L"button1";
 			this->mazzo->UseVisualStyleBackColor = true;
 			// 
-			// pictureBox1
+			// Briscola
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(524, 384);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(188, 111);
-			this->pictureBox1->TabIndex = 8;
-			this->pictureBox1->TabStop = false;
+			this->Briscola->Location = System::Drawing::Point(524, 384);
+			this->Briscola->Name = L"Briscola";
+			this->Briscola->Size = System::Drawing::Size(188, 111);
+			this->Briscola->TabIndex = 8;
+			this->Briscola->TabStop = false;
 			// 
-			// pictureBox3
+			// carteGiocate
 			// 
-			this->pictureBox3->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.InitialImage")));
-			this->pictureBox3->Location = System::Drawing::Point(368, 339);
-			this->pictureBox3->Name = L"pictureBox3";
-			this->pictureBox3->Size = System::Drawing::Size(127, 203);
-			this->pictureBox3->TabIndex = 10;
-			this->pictureBox3->TabStop = false;
+			this->carteGiocate->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"carteGiocate.InitialImage")));
+			this->carteGiocate->Location = System::Drawing::Point(368, 339);
+			this->carteGiocate->Name = L"carteGiocate";
+			this->carteGiocate->Size = System::Drawing::Size(127, 203);
+			this->carteGiocate->TabIndex = 10;
+			this->carteGiocate->TabStop = false;
 			// 
 			// turnoPlayer
 			// 
@@ -161,47 +161,48 @@ namespace Briscola {
 			// 
 			this->imageList1->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^>(resources->GetObject(L"imageList1.ImageStream")));
 			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
-			this->imageList1->Images->SetKeyName(0, L"assoBastoni.png");
-			this->imageList1->Images->SetKeyName(1, L"assoCoppe.png");
-			this->imageList1->Images->SetKeyName(2, L"assoDenari.png");
-			this->imageList1->Images->SetKeyName(3, L"assoSpade.png");
-			this->imageList1->Images->SetKeyName(4, L"back.png");
-			this->imageList1->Images->SetKeyName(5, L"cavalloBastoni.png");
-			this->imageList1->Images->SetKeyName(6, L"cavalloCoppe.png");
-			this->imageList1->Images->SetKeyName(7, L"cavalloDenari.png");
-			this->imageList1->Images->SetKeyName(8, L"cavalloSpade.png");
-			this->imageList1->Images->SetKeyName(9, L"cinqueBastoni.png");
-			this->imageList1->Images->SetKeyName(10, L"cinqueCoppe.png");
-			this->imageList1->Images->SetKeyName(11, L"cinqueDenari.png");
-			this->imageList1->Images->SetKeyName(12, L"cinqueSpade.png");
-			this->imageList1->Images->SetKeyName(13, L"dueBastoni.png");
-			this->imageList1->Images->SetKeyName(14, L"dueCoppe.png");
-			this->imageList1->Images->SetKeyName(15, L"dueDenari.png");
-			this->imageList1->Images->SetKeyName(16, L"dueSpade.png");
-			this->imageList1->Images->SetKeyName(17, L"fanteBastoni.png");
-			this->imageList1->Images->SetKeyName(18, L"fanteCoppe.png");
-			this->imageList1->Images->SetKeyName(19, L"fanteDenari.png");
-			this->imageList1->Images->SetKeyName(20, L"fanteSpade.png");
-			this->imageList1->Images->SetKeyName(21, L"quattroBastoni.png");
-			this->imageList1->Images->SetKeyName(22, L"quattroCoppe.png");
-			this->imageList1->Images->SetKeyName(23, L"quattroDenari.png");
-			this->imageList1->Images->SetKeyName(24, L"quattroSpade.png");
-			this->imageList1->Images->SetKeyName(25, L"reBastoni.png");
-			this->imageList1->Images->SetKeyName(26, L"reCoppe.png");
-			this->imageList1->Images->SetKeyName(27, L"reDenari.png");
-			this->imageList1->Images->SetKeyName(28, L"reSpade.png");
-			this->imageList1->Images->SetKeyName(29, L"seiBastoni.png");
-			this->imageList1->Images->SetKeyName(30, L"seiCoppe.png");
-			this->imageList1->Images->SetKeyName(31, L"seiDenari.png");
-			this->imageList1->Images->SetKeyName(32, L"seiSpade.png");
-			this->imageList1->Images->SetKeyName(33, L"setteBastoni.png");
-			this->imageList1->Images->SetKeyName(34, L"setteCoppe.png");
-			this->imageList1->Images->SetKeyName(35, L"setteDenari.png");
-			this->imageList1->Images->SetKeyName(36, L"setteSpade.png");
-			this->imageList1->Images->SetKeyName(37, L"treBastoni.png");
-			this->imageList1->Images->SetKeyName(38, L"treCoppe.png");
-			this->imageList1->Images->SetKeyName(39, L"treDenari.png");
-			this->imageList1->Images->SetKeyName(40, L"treSpade.png");
+			this->imageList1->Images->SetKeyName(0, L"noCarta.png");
+			this->imageList1->Images->SetKeyName(1, L"assoBastoni.png");
+			this->imageList1->Images->SetKeyName(2, L"assoCoppe.png");
+			this->imageList1->Images->SetKeyName(3, L"assoDenari.png");
+			this->imageList1->Images->SetKeyName(4, L"assoSpade.png");
+			this->imageList1->Images->SetKeyName(5, L"back.png");
+			this->imageList1->Images->SetKeyName(6, L"cavalloBastoni.png");
+			this->imageList1->Images->SetKeyName(7, L"cavalloCoppe.png");
+			this->imageList1->Images->SetKeyName(8, L"cavalloDenari.png");
+			this->imageList1->Images->SetKeyName(9, L"cavalloSpade.png");
+			this->imageList1->Images->SetKeyName(10, L"cinqueBastoni.png");
+			this->imageList1->Images->SetKeyName(11, L"cinqueCoppe.png");
+			this->imageList1->Images->SetKeyName(12, L"cinqueDenari.png");
+			this->imageList1->Images->SetKeyName(13, L"cinqueSpade.png");
+			this->imageList1->Images->SetKeyName(14, L"dueBastoni.png");
+			this->imageList1->Images->SetKeyName(15, L"dueCoppe.png");
+			this->imageList1->Images->SetKeyName(16, L"dueDenari.png");
+			this->imageList1->Images->SetKeyName(17, L"dueSpade.png");
+			this->imageList1->Images->SetKeyName(18, L"fanteBastoni.png");
+			this->imageList1->Images->SetKeyName(19, L"fanteCoppe.png");
+			this->imageList1->Images->SetKeyName(20, L"fanteDenari.png");
+			this->imageList1->Images->SetKeyName(21, L"fanteSpade.png");
+			this->imageList1->Images->SetKeyName(22, L"quattroBastoni.png");
+			this->imageList1->Images->SetKeyName(23, L"quattroCoppe.png");
+			this->imageList1->Images->SetKeyName(24, L"quattroDenari.png");
+			this->imageList1->Images->SetKeyName(25, L"quattroSpade.png");
+			this->imageList1->Images->SetKeyName(26, L"reBastoni.png");
+			this->imageList1->Images->SetKeyName(27, L"reCoppe.png");
+			this->imageList1->Images->SetKeyName(28, L"reDenari.png");
+			this->imageList1->Images->SetKeyName(29, L"reSpade.png");
+			this->imageList1->Images->SetKeyName(30, L"seiBastoni.png");
+			this->imageList1->Images->SetKeyName(31, L"seiCoppe.png");
+			this->imageList1->Images->SetKeyName(32, L"seiDenari.png");
+			this->imageList1->Images->SetKeyName(33, L"seiSpade.png");
+			this->imageList1->Images->SetKeyName(34, L"setteBastoni.png");
+			this->imageList1->Images->SetKeyName(35, L"setteCoppe.png");
+			this->imageList1->Images->SetKeyName(36, L"setteDenari.png");
+			this->imageList1->Images->SetKeyName(37, L"setteSpade.png");
+			this->imageList1->Images->SetKeyName(38, L"treBastoni.png");
+			this->imageList1->Images->SetKeyName(39, L"treCoppe.png");
+			this->imageList1->Images->SetKeyName(40, L"treDenari.png");
+			this->imageList1->Images->SetKeyName(41, L"treSpade.png");
 			// 
 			// MyForm
 			// 
@@ -211,9 +212,9 @@ namespace Briscola {
 			this->BackColor = System::Drawing::Color::ForestGreen;
 			this->ClientSize = System::Drawing::Size(855, 898);
 			this->Controls->Add(this->turnoPlayer);
-			this->Controls->Add(this->pictureBox3);
+			this->Controls->Add(this->carteGiocate);
 			this->Controls->Add(this->mazzo);
-			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->Briscola);
 			this->Controls->Add(this->cartaBack3);
 			this->Controls->Add(this->cartaBack2);
 			this->Controls->Add(this->cartaBack1);
@@ -228,8 +229,8 @@ namespace Briscola {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Briscola))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->carteGiocate))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

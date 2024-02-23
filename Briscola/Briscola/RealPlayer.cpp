@@ -13,6 +13,6 @@ bool RealPlayer::giocaCarta(Carta carta) {
 	return mazzo - carta;
 }
 
-void setCarta(int nCarta, Carta carta, MyForm form) {
-	
+void RealPlayer::setCarta(Carta carta) {
+	mazzo + carta;
 }

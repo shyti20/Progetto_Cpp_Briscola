@@ -10,6 +10,7 @@ class Napoletano : public MazzoDiCarte {
         void inizializza();
         int getDim();
         Carta operator--();
+        Carta getCarta(int pos);
 };
 
 #endif

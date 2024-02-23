@@ -41,6 +41,10 @@ int Carta::getPunteggio() {
     return punteggio;
 }
 
+string Carta::getPath() {
+    return path;
+}
+
 void Carta::setSeme(string seme) {
     this->seme = seme;
 }

@@ -13,3 +13,7 @@ Carta AiPlayer::scegliCarta() {
 	Carta a;
 	return a;
 }
+
+void AiPlayer::setCarta(Carta carta) {
+	mazzo + carta;
+}

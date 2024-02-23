@@ -6,3 +6,7 @@ Player::Player() {
 Player::~Player() {
 
 }
+
+Napoletano Player::getMazzo() {
+	return mazzo;
+}

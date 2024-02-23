@@ -79,3 +79,7 @@ Carta Napoletano::operator--() { //estrae una carta random dal mazzo
 
     return cartaEstratta;
 }
+
+Carta Napoletano::getCarta(int pos) {
+    return c[pos];
+}
