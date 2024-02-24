@@ -25,6 +25,7 @@ Carta::~Carta() {
 
 }
 
+
 string Carta::getSeme() {
     return seme;
 }

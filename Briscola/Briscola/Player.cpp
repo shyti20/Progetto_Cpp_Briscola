@@ -11,7 +11,7 @@ Napoletano Player::getMazzo() {
 	return mazzo;
 }
 
-void Player::inizializza(Napoletano mazzo) {
+void Player::inizializza(Napoletano& mazzo) {
 	for (int i = 0; i < 3; i++) {
 		setCarta(--mazzo);
 	}

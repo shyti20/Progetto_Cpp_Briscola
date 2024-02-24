@@ -14,5 +14,5 @@ bool RealPlayer::giocaCarta(Carta carta) {
 }
 
 void RealPlayer::setCarta(Carta carta) {
-	mazzo + carta;
+	mazzo = mazzo + carta;
 }

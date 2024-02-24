@@ -7,7 +7,7 @@ MazzoDiCarte::MazzoDiCarte() {
 
 MazzoDiCarte::~MazzoDiCarte() {
     delete[] c;
-    c = nullptr;
+    //c = nullptr;
 }
 
 bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assicurandosi che sia preesente, uso: mazzo - carta
@@ -32,7 +32,7 @@ bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assic
 }
 
 
-void MazzoDiCarte::setDim(int dim) { //pericoloso
+/*void MazzoDiCarte::setDim(int dim) { //pericoloso
     if (c != nullptr) {
         delete[] c;
     }
@@ -46,27 +46,25 @@ void MazzoDiCarte::setDim(int dim) { //pericoloso
 
 
 
-}
+}*/
 
-Carta MazzoDiCarte::getCarta(int pos) {
-    if (dim != 0) {
-        return c[pos];
-    }
-}
-
-/*MazzoDiCarte& MazzoDiCarte::operator=(MazzoDiCarte& mazzo) {
-    dim = mazzo.dim;
-    if (dim != 0) {
+void MazzoDiCarte::setDim(int dim) {
+    if (c != nullptr) {
         delete[] c;
+    }
+    this->dim = dim;
+    if (dim != 0) {
         c = new Carta[dim];
-        for (int i = 0; i < dim; i++) {
-            c[i] = mazzo.c[i];
-        }
     }
     else {
         c = nullptr;
     }
+}
 
-    return (*this);
-
-}*/
+Carta MazzoDiCarte::getCarta(int pos) {
+    if (dim != 0 && pos <= dim) {
+        return c[pos];
+    }
+    Carta c;
+    return c;
+}

@@ -50,7 +50,7 @@ void Briscola::MyForm::showCarte(Player &p) {
 	else {
 		this->cartaPlayer3->BackgroundImage = imageList1->Images[2];
 	}
-	this->cartaPlayer1->Refresh();
+	/*this->cartaPlayer1->Refresh();
 	this->cartaPlayer2->Refresh();
-	this->cartaPlayer3->Refresh();
+	this->cartaPlayer3->Refresh();*/
 }

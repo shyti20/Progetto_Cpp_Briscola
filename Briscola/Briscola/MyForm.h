@@ -21,7 +21,6 @@ namespace Briscola {
 	public:
 		MyForm(void);
 		void showCarte(Player &p);
-	private:
 		~MyForm();
 	private: 
 		System::Windows::Forms::Button^ cartaPlayer1;
