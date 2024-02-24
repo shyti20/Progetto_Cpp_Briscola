@@ -25,8 +25,7 @@ Briscola::MyForm::~MyForm() {
 	}
 }
 
-void Briscola::MyForm::showCarte(Player &p) {
-	Napoletano temp = p.getMazzo();
+void Briscola::MyForm::showCarte(Napoletano temp) {
 	int n1 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(0).getPath().c_str()));
 	int n2 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(1).getPath().c_str()));
 	int n3 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(2).getPath().c_str()));
@@ -50,7 +49,7 @@ void Briscola::MyForm::showCarte(Player &p) {
 	else {
 		this->cartaPlayer3->BackgroundImage = imageList1->Images[2];
 	}
-	/*this->cartaPlayer1->Refresh();
+	this->cartaPlayer1->Refresh();
 	this->cartaPlayer2->Refresh();
-	this->cartaPlayer3->Refresh();*/
+	this->cartaPlayer3->Refresh();
 }

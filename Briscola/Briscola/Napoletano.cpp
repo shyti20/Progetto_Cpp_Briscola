@@ -89,6 +89,9 @@ Carta Napoletano::operator--() { //estrae una carta random dal mazzo
     int nRand = rand() % 40;
     Carta cartaEstratta = c[nRand];
     Carta *temp = new Carta[dim];
+    if (dim == 0) {
+        return Carta();
+    }
     for (int i = nRand; i < dim - 1; i++) {
         c[i] = c[i + 1];
     }

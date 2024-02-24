@@ -20,7 +20,7 @@ namespace Briscola {
 	{
 	public:
 		MyForm(void);
-		void showCarte(Player &p);
+		void showCarte(Napoletano temp);
 		~MyForm();
 	private: 
 		System::Windows::Forms::Button^ cartaPlayer1;
@@ -243,7 +243,7 @@ private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) 
 	RealPlayer p1;
 	mazzo.inizializza();
 	p1.inizializza(mazzo);
-	showCarte(p1);
+	showCarte(p1.getMazzo());
 }
 };
 }

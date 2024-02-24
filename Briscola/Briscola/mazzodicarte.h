@@ -20,7 +20,6 @@ class MazzoDiCarte {
         Carta getCarta(int pos);
         bool operator-(Carta carta); //toglie una carta assicurandosi che sia presente
         // MazzoDiCarte& operator+(Carta carta); //aggiunge una carta
-        MazzoDiCarte& operator=(MazzoDiCarte& mazzo);
 };
 
 #endif

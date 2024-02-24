@@ -7,7 +7,7 @@ MazzoDiCarte::MazzoDiCarte() {
 
 MazzoDiCarte::~MazzoDiCarte() {
     delete[] c;
-    //c = nullptr;
+    c = nullptr;
 }
 
 bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assicurandosi che sia preesente, uso: mazzo - carta
@@ -18,7 +18,7 @@ bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assic
     for (int j = i; j < dim - 1; j++) {
         c[j] = c[j + 1];
     }
-    Carta* temp = new Carta[dim];
+    Carta* temp = new Carta[dim - 1];
     for (int j = 0; j < dim - 1; j++) {
         temp[j] = c[j];
     }
