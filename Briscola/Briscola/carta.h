@@ -25,8 +25,7 @@ class Carta {
         void setPunteggio(int punteggio);
         Carta confronta(Carta c2, Carta briscola);
         int operator+(Carta c2);
-    friend istream& operator>>(istream& inp, Carta c);
-    friend ostream& operator<<(ostream& out, Carta c);
+        Carta& operator=(Carta carta);
 };
 
 #endif

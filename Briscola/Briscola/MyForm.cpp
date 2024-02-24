@@ -1,4 +1,5 @@
 #include "MyForm.h"
+#include "carta.h"
 #include <iostream>
 
 using namespace std;
@@ -25,32 +26,31 @@ Briscola::MyForm::~MyForm() {
 }
 
 void Briscola::MyForm::showCarte(Player &p) {
-	Carta c1 = p.getMazzo().getCarta(1);
-	Carta c2 = p.getMazzo().getCarta(2);
-	Carta c3 = p.getMazzo().getCarta(3);
-	
-	int n1 = imageList1->Images->IndexOfKey(gcnew String(c1.getPath().c_str()));
-	int n2 = imageList1->Images->IndexOfKey(gcnew String(c2.getPath().c_str()));
-	int n3 = imageList1->Images->IndexOfKey(gcnew String(c3.getPath().c_str()));
+	Napoletano temp = p.getMazzo();
+	int n1 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(0).getPath().c_str()));
+	int n2 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(1).getPath().c_str()));
+	int n3 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(2).getPath().c_str()));
 	if (n1 == -1) {
-		cartaPlayer1->BackgroundImage = imageList1->Images[0];
+		this->cartaPlayer1->BackgroundImage = imageList1->Images[0];
 	}
 	else {
-		cartaPlayer1->BackgroundImage = imageList1->Images[n1];
+		this->cartaPlayer1->BackgroundImage = imageList1->Images[2];
 	}
 
 	if (n2 == -1) {
-		cartaPlayer2->BackgroundImage = imageList1->Images[0];
+		this->cartaPlayer2->BackgroundImage = imageList1->Images[0];
 	}
 	else {
-		cartaPlayer2->BackgroundImage = imageList1->Images[n2];
+		this->cartaPlayer2->BackgroundImage = imageList1->Images[2];
 	}
 
 	if (n3 == -1) {
-		cartaPlayer3->BackgroundImage = imageList1->Images[0];
+		this->cartaPlayer3->BackgroundImage = imageList1->Images[0];
 	}
 	else {
-		cartaPlayer3->BackgroundImage = imageList1->Images[n3];
+		this->cartaPlayer3->BackgroundImage = imageList1->Images[2];
 	}
-	
+	this->cartaPlayer1->Refresh();
+	this->cartaPlayer2->Refresh();
+	this->cartaPlayer3->Refresh();
 }

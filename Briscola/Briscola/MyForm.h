@@ -2,6 +2,8 @@
 #include <iostream>
 #include "napoletano.h"
 #include "player.h"
+#include "realplayer.h"
+#include "aiplayer.h"
 namespace Briscola {
 
 	using namespace System;
@@ -65,6 +67,7 @@ namespace Briscola {
 			// cartaPlayer1
 			// 
 			this->cartaPlayer1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer1.BackgroundImage")));
+			this->cartaPlayer1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->cartaPlayer1->Location = System::Drawing::Point(203, 687);
 			this->cartaPlayer1->Name = L"cartaPlayer1";
 			this->cartaPlayer1->Size = System::Drawing::Size(127, 203);
@@ -83,7 +86,7 @@ namespace Briscola {
 			// cartaPlayer3
 			// 
 			this->cartaPlayer3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer3.BackgroundImage")));
-			this->cartaPlayer3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->cartaPlayer3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->cartaPlayer3->Location = System::Drawing::Point(538, 687);
 			this->cartaPlayer3->Name = L"cartaPlayer3";
 			this->cartaPlayer3->Size = System::Drawing::Size(127, 203);
@@ -122,11 +125,11 @@ namespace Briscola {
 			// 
 			// mazzo
 			// 
+			this->mazzo->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"mazzo.BackgroundImage")));
 			this->mazzo->Location = System::Drawing::Point(653, 339);
 			this->mazzo->Name = L"mazzo";
 			this->mazzo->Size = System::Drawing::Size(127, 203);
 			this->mazzo->TabIndex = 7;
-			this->mazzo->Text = L"button1";
 			this->mazzo->UseVisualStyleBackColor = true;
 			// 
 			// Briscola
@@ -238,7 +241,10 @@ namespace Briscola {
 #pragma endregion
 private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	Napoletano mazzo;
+	RealPlayer p1;
 	mazzo.inizializza();
+	p1.inizializza(mazzo);
+	showCarte(p1);
 }
 };
 }

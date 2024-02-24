@@ -17,8 +17,10 @@ class MazzoDiCarte {
         /*pericoloso!, cambia la dimensione ma cancella
         tutti gli elementi dell'array */
         void setDim(int dim); 
+        Carta getCarta(int pos);
         bool operator-(Carta carta); //toglie una carta assicurandosi che sia presente
-        void operator+(Carta carta); //aggiunge una carta
+        // MazzoDiCarte& operator+(Carta carta); //aggiunge una carta
+        MazzoDiCarte& operator=(MazzoDiCarte& mazzo);
 };
 
 #endif

@@ -1,13 +1,12 @@
 #include "napoletano.h"
 
 Napoletano::Napoletano() {
-    delete[] c;
     dim = 40;
     c = new Carta[dim];
 }
 
 Napoletano::~Napoletano() {
-    delete[] c;
+
 }
 
 void Napoletano::inizializza() { //inizializza il mazzo di carte
@@ -43,12 +42,16 @@ void Napoletano::inizializza() { //inizializza il mazzo di carte
         switch (i % 4) {
             case 0:
                 c[i].setSeme("Bastoni");
+                break;
             case 1:
                 c[i].setSeme("Spade");
+                break;
             case 2:
                 c[i].setSeme("Denari");
+                break;
             case 3:
                 c[i].setSeme("Coppe");
+                break;
         }
         c[i].setPath(c[i].getSeme(), c[i].getNome());
     }
@@ -59,8 +62,30 @@ int Napoletano::getDim() {
 }
 
 
+Napoletano& Napoletano::operator+(const Carta& carta) { //aggiunge una carta al mazzo, uso: mazzo + carta
+    if (dim != 0) {
+        Carta* temp = new Carta[dim];
+        for (int i = 0; i < dim; i++) {
+            temp[i] = c[i];
+        }
+        delete[] c;
+        dim++;
+        c = new Carta[dim];
+        for (int i = 0; i < dim - 1; i++) {
+            c[i] = temp[i];
+        }
+        delete[] temp;
+    } else {
+        dim++;
+        delete[] c;
+        c = new Carta[dim];
+    }
+    c[dim - 1] = carta;
+
+    return (*this);
+}
+
 Carta Napoletano::operator--() { //estrae una carta random dal mazzo
-    srand(time(NULL));
     int nRand = rand() % 40;
     Carta cartaEstratta = c[nRand];
     Carta *temp = new Carta[dim];
@@ -80,6 +105,19 @@ Carta Napoletano::operator--() { //estrae una carta random dal mazzo
     return cartaEstratta;
 }
 
-Carta Napoletano::getCarta(int pos) {
-    return c[pos];
+Napoletano& Napoletano::operator=(const Napoletano& mazzo) {
+    dim = mazzo.dim;
+    if (dim != 0) {
+        delete[] c;
+        c = new Carta[dim];
+        for (int i = 0; i < dim; i++) {
+            c[i] = mazzo.c[i];
+        }
+    }
+    else {
+        c = nullptr;
+    }
+
+    return (*this);
+
 }

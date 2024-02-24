@@ -1,19 +1,15 @@
 #include "MyForm.h"
-#include "napoletano.h"
-#include "realplayer.h"
-#include "aiplayer.h"
+#include <ctime>
 
 using namespace System;
 using namespace System::Windows::Forms;
 
 void main()
 {
+	srand(time(NULL));
+	
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Briscola::MyForm form;
 	Application::Run(% form);
-	Napoletano mazzo;
-	RealPlayer p1;
-	
-	mazzo.inizializza();
 }

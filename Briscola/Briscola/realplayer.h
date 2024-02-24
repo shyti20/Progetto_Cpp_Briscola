@@ -4,7 +4,6 @@
 #include "player.h"
 
 class RealPlayer : public Player {
-	private:
 	public:
 		RealPlayer();
 		~RealPlayer();

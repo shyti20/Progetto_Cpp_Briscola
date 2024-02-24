@@ -15,8 +15,8 @@ Carta::Carta(string seme, string nome, string path,int numero, int punteggio) {
     this->punteggio = punteggio;
     this->path = path;
     if (numero <= 0 || punteggio < 0) {
-        numero = 1;
-        punteggio = 0;
+        this->numero = 1;
+        this->punteggio = 0;
     }
 
 }
@@ -87,24 +87,18 @@ int Carta::operator+(Carta c2) {
     return numero + c2.numero;
 
 }
-istream& operator>>(istream& inp, Carta c) {
-    do {
-            cout << endl << "Inserire il seme della carta: ";
-            inp >> c.seme;
-    } while (c.seme == "");
 
-    do {
-        cout << endl << "Inserire il numero della carta: ";
-        inp >> c.numero;
-    } while (c.numero <= 0);
+Carta& Carta::operator=(Carta carta)
+{
+    seme = carta.seme;
+    nome = carta.nome;
+    numero = carta.numero;
+    punteggio = carta.punteggio;
+    path = carta.path;
+    if (numero <= 0 || punteggio < 0) {
+        numero = 1;
+        punteggio = 0;
+    }
 
-    return inp;
-}
-ostream& operator<<(ostream& out, Carta c) {
-    out << endl << "Seme: " << c.seme;
-    out << endl << "Nome: " << c.nome;
-    out << endl << "Punteggio: " << c.punteggio;
-    out << endl << "Numero: " << c.numero;
-
-    return out;
+    return (*this);
 }
