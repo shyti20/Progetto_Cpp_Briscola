@@ -1,27 +1,32 @@
 #include "realplayer.h"
 
 RealPlayer::RealPlayer() {
-
+    mazzo.setDim(0);
 }
 
 RealPlayer::~RealPlayer() {
 
 }
 
-bool RealPlayer::giocaCarta(Carta carta) {
-	return mazzo - carta;
+bool RealPlayer::giocaCarta(int pos) {
+    Carta cartaGiocata = getMazzo().getCarta(pos);
+    return true;
 }
 
-void RealPlayer::setCarta(Carta carta) {
-	mazzo = mazzo + carta;
+void RealPlayer::setCarta(Carta& carta) {
+	this->mazzo + carta;
 }
 
-void RealPlayer::inizializza(Napoletano& mazzo) {
-    if (mazzo.getDim() < 3) {
-        return;
-    }
-
+/*Napoletano RealPlayer::inizializzaPlayer(Napoletano mazzoCarte) {
+    this->mazzo.setDim(0);
     for (int i = 0; i < 3; i++) {
-        setCarta(--mazzo);
+        //Carta c = --mazzoCarte;
+        //setCarta(c);
     }
+    return mazzoCarte;
+}*/
+
+
+void RealPlayer::test(Napoletano n) {
+
 }

@@ -9,7 +9,7 @@ class Napoletano : public MazzoDiCarte {
         ~Napoletano();
         void inizializza();
         int getDim();
-        Napoletano& operator+(const Carta& carta);
+        void operator+(const Carta& carta);
         Carta operator--();
         Napoletano& operator=(const Napoletano& mazzo);
 };

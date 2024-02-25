@@ -7,7 +7,7 @@ using namespace System::Windows::Forms;
 
 void main()
 {
-	srand(time(NULL));
+
 	
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

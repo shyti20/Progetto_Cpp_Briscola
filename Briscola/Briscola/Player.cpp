@@ -1,13 +1,14 @@
 #include "player.h"
 
 Player::Player() {
-	mazzo.setDim(0);
+	Napoletano mazzo;
+	Carta cartaGiocata;
 }
 
 Player::~Player() {
 
 }
 
-Napoletano Player::getMazzo() {
+Napoletano& Player::getMazzo() {
 	return mazzo;
 }

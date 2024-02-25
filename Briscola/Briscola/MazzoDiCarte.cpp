@@ -10,12 +10,15 @@ MazzoDiCarte::~MazzoDiCarte() {
     c = nullptr;
 }
 
-bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assicurandosi che sia preesente, uso: mazzo - carta
+bool MazzoDiCarte::operator-(Carta carta) { 
+    //rimuove una carta dal mazzo, assicurandosi che sia preesente, uso: mazzo - carta, la rimozione non rimuove fisicamente la carta ma ne "Elimina" il contenuto
     if (dim <= 0) return false;
     int i;
     for (i = 0; i < dim && carta.getNome() != c[i].getNome() && carta.getSeme() != c[i].getSeme(); i++);
     if (i >= dim) return false;
-    for (int j = i; j < dim - 1; j++) {
+    Carta temp;
+    c[i] = temp;
+    /*for (int j = i; j < dim - 1; j++) {
         c[j] = c[j + 1];
     }
     Carta* temp = new Carta[dim - 1];
@@ -23,11 +26,12 @@ bool MazzoDiCarte::operator-(Carta carta) { //rimuove una carta dal mazzo, assic
         temp[j] = c[j];
     }
     dim--;
-    setDim(dim);
+    delete[] c;
+    c = new Carta[dim];
     for (int j = 0; j < dim; j++) {
         c[j] = temp[j];
     }
-    delete[] temp;
+    delete[] temp;*/
     return true;
 }
 

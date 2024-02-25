@@ -7,9 +7,10 @@ class RealPlayer : public Player {
 	public:
 		RealPlayer();
 		~RealPlayer();
-		bool giocaCarta(Carta carta);
-		void setCarta(Carta carta);
-		void inizializza(Napoletano& mazzo);
+		bool giocaCarta(int pos);
+		void setCarta(Carta& carta);
+		Napoletano inizializzaPlayer(Napoletano mazzoCarte);
+		void test(Napoletano n);
 };
 
 #endif

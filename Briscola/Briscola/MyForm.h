@@ -1,9 +1,13 @@
+#ifndef MYFORM_H
+#define MYFORM_H
+
 #pragma once
 #include <iostream>
 #include "napoletano.h"
-#include "player.h"
 #include "realplayer.h"
 #include "aiplayer.h"
+#include "player.h"
+
 namespace Briscola {
 
 	using namespace System;
@@ -20,20 +24,27 @@ namespace Briscola {
 	{
 	public:
 		MyForm(void);
-		void showCarte(Napoletano temp);
+		void showCarte(Napoletano& temp);
+		Carta inizializzaGioco(Napoletano& mazzo, Player& p1, Player& p2);
+		void realVSReal(Napoletano& mazzo, Player& p1, Player& p2, Carta& briscola);
+		void realVSAi(Napoletano& mazzo, Player& p1, Player& p2, Carta& briscola);
 		~MyForm();
-	private: 
+	private:
 		System::Windows::Forms::Button^ cartaPlayer1;
 		System::Windows::Forms::Button^ cartaPlayer2;
 		System::Windows::Forms::Button^ cartaPlayer3;
 		System::Windows::Forms::PictureBox^ cartaBack1;
 		System::Windows::Forms::PictureBox^ cartaBack2;
 		System::Windows::Forms::PictureBox^ cartaBack3;
-		System::Windows::Forms::Button^ mazzo;
+
 		System::Windows::Forms::PictureBox^ Briscola;
 		System::Windows::Forms::Label^ turnoPlayer;
 		System::Windows::Forms::PictureBox^ carteGiocate;
-		System::Windows::Forms::ImageList^ imageList1;
+	private: System::Windows::Forms::ImageList^ imageList1;
+	private: System::Windows::Forms::PictureBox^ mazzo;
+
+	private:
+
 		System::ComponentModel::IContainer^ components;
 
 #pragma region Windows Form Designer generated code
@@ -51,46 +62,64 @@ namespace Briscola {
 			this->cartaBack1 = (gcnew System::Windows::Forms::PictureBox());
 			this->cartaBack2 = (gcnew System::Windows::Forms::PictureBox());
 			this->cartaBack3 = (gcnew System::Windows::Forms::PictureBox());
-			this->mazzo = (gcnew System::Windows::Forms::Button());
 			this->Briscola = (gcnew System::Windows::Forms::PictureBox());
 			this->carteGiocate = (gcnew System::Windows::Forms::PictureBox());
 			this->turnoPlayer = (gcnew System::Windows::Forms::Label());
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
+			this->mazzo = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Briscola))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->carteGiocate))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->mazzo))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// cartaPlayer1
 			// 
 			this->cartaPlayer1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer1.BackgroundImage")));
-			this->cartaPlayer1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->cartaPlayer1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->cartaPlayer1->FlatAppearance->BorderColor = System::Drawing::Color::Green;
+			this->cartaPlayer1->FlatAppearance->BorderSize = 0;
+			this->cartaPlayer1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Yellow;
+			this->cartaPlayer1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cartaPlayer1->ImageIndex = 6;
 			this->cartaPlayer1->Location = System::Drawing::Point(203, 687);
 			this->cartaPlayer1->Name = L"cartaPlayer1";
 			this->cartaPlayer1->Size = System::Drawing::Size(127, 203);
 			this->cartaPlayer1->TabIndex = 0;
 			this->cartaPlayer1->UseVisualStyleBackColor = true;
+			this->cartaPlayer1->Click += gcnew System::EventHandler(this, &MyForm::cartaPlayer1_Click);
 			// 
 			// cartaPlayer2
 			// 
 			this->cartaPlayer2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer2.BackgroundImage")));
-			this->cartaPlayer2->Location = System::Drawing::Point(368, 687);
+			this->cartaPlayer2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->cartaPlayer2->FlatAppearance->BorderColor = System::Drawing::Color::Green;
+			this->cartaPlayer2->FlatAppearance->BorderSize = 0;
+			this->cartaPlayer2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Yellow;
+			this->cartaPlayer2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cartaPlayer2->Location = System::Drawing::Point(377, 687);
 			this->cartaPlayer2->Name = L"cartaPlayer2";
 			this->cartaPlayer2->Size = System::Drawing::Size(127, 203);
 			this->cartaPlayer2->TabIndex = 1;
 			this->cartaPlayer2->UseVisualStyleBackColor = true;
+			this->cartaPlayer2->Click += gcnew System::EventHandler(this, &MyForm::cartaPlayer2_Click);
 			// 
 			// cartaPlayer3
 			// 
 			this->cartaPlayer3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cartaPlayer3.BackgroundImage")));
-			this->cartaPlayer3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->cartaPlayer3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->cartaPlayer3->FlatAppearance->BorderColor = System::Drawing::Color::Green;
+			this->cartaPlayer3->FlatAppearance->BorderSize = 0;
+			this->cartaPlayer3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Yellow;
+			this->cartaPlayer3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cartaPlayer3->Location = System::Drawing::Point(538, 687);
 			this->cartaPlayer3->Name = L"cartaPlayer3";
 			this->cartaPlayer3->Size = System::Drawing::Size(127, 203);
 			this->cartaPlayer3->TabIndex = 2;
 			this->cartaPlayer3->UseVisualStyleBackColor = true;
+			this->cartaPlayer3->Click += gcnew System::EventHandler(this, &MyForm::cartaPlayer3_Click);
 			// 
 			// cartaBack1
 			// 
@@ -122,17 +151,10 @@ namespace Briscola {
 			this->cartaBack3->TabIndex = 5;
 			this->cartaBack3->TabStop = false;
 			// 
-			// mazzo
-			// 
-			this->mazzo->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"mazzo.BackgroundImage")));
-			this->mazzo->Location = System::Drawing::Point(653, 339);
-			this->mazzo->Name = L"mazzo";
-			this->mazzo->Size = System::Drawing::Size(127, 203);
-			this->mazzo->TabIndex = 7;
-			this->mazzo->UseVisualStyleBackColor = true;
-			// 
 			// Briscola
 			// 
+			this->Briscola->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Briscola.BackgroundImage")));
+			this->Briscola->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->Briscola->Location = System::Drawing::Point(524, 384);
 			this->Briscola->Name = L"Briscola";
 			this->Briscola->Size = System::Drawing::Size(188, 111);
@@ -166,8 +188,8 @@ namespace Briscola {
 			this->imageList1->Images->SetKeyName(0, L"noCarta.png");
 			this->imageList1->Images->SetKeyName(1, L"assoBastoni.png");
 			this->imageList1->Images->SetKeyName(2, L"assoCoppe.png");
-			this->imageList1->Images->SetKeyName(3, L"assoDenari.png");
-			this->imageList1->Images->SetKeyName(4, L"assoSpade.png");
+			this->imageList1->Images->SetKeyName(3, L"assoSpade.png");
+			this->imageList1->Images->SetKeyName(4, L"assoDenari.png");
 			this->imageList1->Images->SetKeyName(5, L"back.png");
 			this->imageList1->Images->SetKeyName(6, L"cavalloBastoni.png");
 			this->imageList1->Images->SetKeyName(7, L"cavalloCoppe.png");
@@ -206,6 +228,17 @@ namespace Briscola {
 			this->imageList1->Images->SetKeyName(40, L"treDenari.png");
 			this->imageList1->Images->SetKeyName(41, L"treSpade.png");
 			// 
+			// mazzo
+			// 
+			this->mazzo->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"mazzo.BackgroundImage")));
+			this->mazzo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->mazzo->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"mazzo.InitialImage")));
+			this->mazzo->Location = System::Drawing::Point(651, 339);
+			this->mazzo->Name = L"mazzo";
+			this->mazzo->Size = System::Drawing::Size(127, 203);
+			this->mazzo->TabIndex = 12;
+			this->mazzo->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -213,9 +246,9 @@ namespace Briscola {
 			this->AutoSize = true;
 			this->BackColor = System::Drawing::Color::ForestGreen;
 			this->ClientSize = System::Drawing::Size(855, 898);
+			this->Controls->Add(this->mazzo);
 			this->Controls->Add(this->turnoPlayer);
 			this->Controls->Add(this->carteGiocate);
-			this->Controls->Add(this->mazzo);
 			this->Controls->Add(this->Briscola);
 			this->Controls->Add(this->cartaBack3);
 			this->Controls->Add(this->cartaBack2);
@@ -226,24 +259,51 @@ namespace Briscola {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Briscola by Franko & Diego";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Briscola))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->carteGiocate))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->mazzo))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	Napoletano mazzo;
-	RealPlayer p1;
-	mazzo.inizializza();
-	p1.inizializza(mazzo);
-	showCarte(p1.getMazzo());
-}
+	public: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		Napoletano mazzo;
+		Carta briscola;
+		//TODO: LOGICA SCELTA GIOCO
+
+		int scelta = 1;
+		if (scelta == 1) { //1v1
+			RealPlayer p1;
+			RealPlayer p2;
+			briscola = inizializzaGioco(mazzo, p1, p2);
+			realVSReal(mazzo, p1, p2, briscola);
+		}
+		else { //1vsAi
+			RealPlayer p1;
+			AiPlayer p2;
+			briscola = inizializzaGioco(mazzo, p1, p2);
+			realVSAi(mazzo, p1, p2, briscola);
+		}
+
+
+	}
+	private: System::Void cartaPlayer1_Click(System::Object^ sender, System::EventArgs^ e) {
+		
+	}
+
+	private: System::Void cartaPlayer2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	}
+
+	private: System::Void cartaPlayer3_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	}
 };
 }
+#endif

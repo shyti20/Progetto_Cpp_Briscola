@@ -10,7 +10,7 @@ Napoletano::~Napoletano() {
 }
 
 void Napoletano::inizializza() { //inizializza il mazzo di carte
-    string numeriCarte[7] = {"due", "tre", "quattro", "cinque", "sei", "sette"};
+    string numeriCarte[] = {"", "due", "tre", "quattro", "cinque", "sei", "sette"};
     for (int i = 0; i < dim; i++) {
         int temp = (i + 1) % 10;
         c[i].setNumero(temp);
@@ -53,7 +53,7 @@ void Napoletano::inizializza() { //inizializza il mazzo di carte
                 c[i].setSeme("Coppe");
                 break;
         }
-        c[i].setPath(c[i].getSeme(), c[i].getNome());
+        c[i].setPath(c[i].getNome(), c[i].getSeme());
     }
 }
 
@@ -62,7 +62,8 @@ int Napoletano::getDim() {
 }
 
 
-Napoletano& Napoletano::operator+(const Carta& carta) { //aggiunge una carta al mazzo, uso: mazzo + carta
+void Napoletano::operator+(const Carta& carta) {
+    //aggiunge una carta al mazzo, uso: mazzo + carta
     if (dim != 0) {
         Carta* temp = new Carta[dim];
         for (int i = 0; i < dim; i++) {
@@ -75,35 +76,38 @@ Napoletano& Napoletano::operator+(const Carta& carta) { //aggiunge una carta al 
             c[i] = temp[i];
         }
         delete[] temp;
-    } else {
+    }
+    else {
         dim++;
-        delete[] c;
         c = new Carta[dim];
     }
-    c[dim - 1] = carta;
-
-    return (*this);
+    if (dim > 0) {
+        c[dim - 1] = carta;
+    }
 }
 
-Carta Napoletano::operator--() { //estrae una carta random dal mazzo
+Carta Napoletano::operator--() {
+    //estrae una carta random dal mazzo
     int nRand = rand() % 40;
     Carta cartaEstratta = c[nRand];
-    Carta *temp = new Carta[dim];
+    Carta* temp = new Carta[dim];
     if (dim == 0) {
         return Carta();
     }
-    for (int i = nRand; i < dim - 1; i++) {
-        c[i] = c[i + 1];
-    }
+    Carta temp1 = c[nRand];
+    c[nRand] = c[dim - 1];
+    c[dim - 1] = temp1;
+
     for (int i = 0; i < dim; i++) {
         temp[i] = c[i];
     }
     dim--;
     delete[] c;
     c = new Carta[dim];
-    for (int i = 0 ; i < dim; i++) {
+    for (int i = 0; i < dim; i++) {
         c[i] = temp[i];
     }
+    delete[] temp;
 
     return cartaEstratta;
 }
