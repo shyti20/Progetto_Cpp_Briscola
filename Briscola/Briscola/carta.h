@@ -26,6 +26,7 @@ class Carta {
         Carta confronta(Carta c2, Carta briscola);
         int operator+(Carta c2);
         Carta& operator=(Carta carta);
+        bool operator!=(Carta c2);
 };
 
 #endif

@@ -103,3 +103,7 @@ Carta& Carta::operator=(Carta carta)
 
     return (*this);
 }
+
+bool Carta::operator!=(Carta c2) {
+    return (getNome() != c2.getNome() && getSeme() != c2.getSeme() && getNumero() != c2.getNumero() && getPunteggio() != c2.getPunteggio() && getPath() != c2.getPath());
+}

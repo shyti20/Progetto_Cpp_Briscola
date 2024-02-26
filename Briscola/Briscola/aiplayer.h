@@ -8,8 +8,8 @@ class AiPlayer : public Player {
 	public:
 		AiPlayer();
 		~AiPlayer();
-		bool giocaCarta(int pos);
-		Carta scegliCarta(Napoletano& deck);
+		void giocaCarta(int pos);
+		Carta scegliCarta();
 		void setCarta(Carta& carta);
 };
 

@@ -7,6 +7,7 @@
 #include "realplayer.h"
 #include "aiplayer.h"
 #include "player.h"
+#include <windows.h>
 
 namespace Briscola {
 
@@ -25,11 +26,15 @@ namespace Briscola {
 	public:
 		MyForm(void);
 		void showCarte(Napoletano& temp);
-		Carta inizializzaGioco(Napoletano& mazzo, Player& p1, Player& p2);
-		void realVSReal(Napoletano& mazzo, Player& p1, Player& p2, Carta& briscola);
-		void realVSAi(Napoletano& mazzo, Player& p1, Player& p2, Carta& briscola);
+		Carta inizializzaGioco(Napoletano& mazzo, RealPlayer& p1, AiPlayer& p2);
 		~MyForm();
 	private:
+		//Variabile: serve a capire quale button e stato premuto se e uguale a 0 cartaPlayer1, 1 cartaPlayer2, 2 cartaPlayer3
+		Napoletano* deck;
+		Carta* briscola;
+		RealPlayer* p1;
+		AiPlayer* p2;
+		bool turnoComputer;
 		System::Windows::Forms::Button^ cartaPlayer1;
 		System::Windows::Forms::Button^ cartaPlayer2;
 		System::Windows::Forms::Button^ cartaPlayer3;
@@ -37,11 +42,14 @@ namespace Briscola {
 		System::Windows::Forms::PictureBox^ cartaBack2;
 		System::Windows::Forms::PictureBox^ cartaBack3;
 
-		System::Windows::Forms::PictureBox^ Briscola;
+
 		System::Windows::Forms::Label^ turnoPlayer;
 		System::Windows::Forms::PictureBox^ carteGiocate;
 	private: System::Windows::Forms::ImageList^ imageList1;
+	private: System::Windows::Forms::PictureBox^ BriscolaBox;
+
 	private: System::Windows::Forms::PictureBox^ mazzo;
+
 
 	private:
 
@@ -62,17 +70,16 @@ namespace Briscola {
 			this->cartaBack1 = (gcnew System::Windows::Forms::PictureBox());
 			this->cartaBack2 = (gcnew System::Windows::Forms::PictureBox());
 			this->cartaBack3 = (gcnew System::Windows::Forms::PictureBox());
-			this->Briscola = (gcnew System::Windows::Forms::PictureBox());
 			this->carteGiocate = (gcnew System::Windows::Forms::PictureBox());
-			this->turnoPlayer = (gcnew System::Windows::Forms::Label());
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			this->mazzo = (gcnew System::Windows::Forms::PictureBox());
+			this->BriscolaBox = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Briscola))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->carteGiocate))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->mazzo))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BriscolaBox))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// cartaPlayer1
@@ -151,16 +158,6 @@ namespace Briscola {
 			this->cartaBack3->TabIndex = 5;
 			this->cartaBack3->TabStop = false;
 			// 
-			// Briscola
-			// 
-			this->Briscola->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Briscola.BackgroundImage")));
-			this->Briscola->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->Briscola->Location = System::Drawing::Point(524, 384);
-			this->Briscola->Name = L"Briscola";
-			this->Briscola->Size = System::Drawing::Size(188, 111);
-			this->Briscola->TabIndex = 8;
-			this->Briscola->TabStop = false;
-			// 
 			// carteGiocate
 			// 
 			this->carteGiocate->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"carteGiocate.InitialImage")));
@@ -169,17 +166,6 @@ namespace Briscola {
 			this->carteGiocate->Size = System::Drawing::Size(127, 203);
 			this->carteGiocate->TabIndex = 10;
 			this->carteGiocate->TabStop = false;
-			// 
-			// turnoPlayer
-			// 
-			this->turnoPlayer->AutoSize = true;
-			this->turnoPlayer->Font = (gcnew System::Drawing::Font(L"IQOS", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->turnoPlayer->Location = System::Drawing::Point(33, 420);
-			this->turnoPlayer->Name = L"turnoPlayer";
-			this->turnoPlayer->Size = System::Drawing::Size(174, 37);
-			this->turnoPlayer->TabIndex = 11;
-			this->turnoPlayer->Text = L"Turno Player: ";
 			// 
 			// imageList1
 			// 
@@ -233,11 +219,20 @@ namespace Briscola {
 			this->mazzo->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"mazzo.BackgroundImage")));
 			this->mazzo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->mazzo->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"mazzo.InitialImage")));
-			this->mazzo->Location = System::Drawing::Point(651, 339);
+			this->mazzo->Location = System::Drawing::Point(652, 339);
 			this->mazzo->Name = L"mazzo";
 			this->mazzo->Size = System::Drawing::Size(127, 203);
 			this->mazzo->TabIndex = 12;
 			this->mazzo->TabStop = false;
+			// 
+			// BriscolaBox
+			// 
+			this->BriscolaBox->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"BriscolaBox.InitialImage")));
+			this->BriscolaBox->Location = System::Drawing::Point(538, 371);
+			this->BriscolaBox->Name = L"BriscolaBox";
+			this->BriscolaBox->Size = System::Drawing::Size(203, 127);
+			this->BriscolaBox->TabIndex = 13;
+			this->BriscolaBox->TabStop = false;
 			// 
 			// MyForm
 			// 
@@ -247,9 +242,8 @@ namespace Briscola {
 			this->BackColor = System::Drawing::Color::ForestGreen;
 			this->ClientSize = System::Drawing::Size(855, 898);
 			this->Controls->Add(this->mazzo);
-			this->Controls->Add(this->turnoPlayer);
+			this->Controls->Add(this->BriscolaBox);
 			this->Controls->Add(this->carteGiocate);
-			this->Controls->Add(this->Briscola);
 			this->Controls->Add(this->cartaBack3);
 			this->Controls->Add(this->cartaBack2);
 			this->Controls->Add(this->cartaBack1);
@@ -264,44 +258,230 @@ namespace Briscola {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->cartaBack3))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Briscola))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->carteGiocate))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->mazzo))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BriscolaBox))->EndInit();
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
 	public: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		Napoletano mazzo;
-		Carta briscola;
-		//TODO: LOGICA SCELTA GIOCO
+		*briscola = inizializzaGioco(*deck, *p1, *p2);
 
-		int scelta = 1;
-		if (scelta == 1) { //1v1
-			RealPlayer p1;
-			RealPlayer p2;
-			briscola = inizializzaGioco(mazzo, p1, p2);
-			realVSReal(mazzo, p1, p2, briscola);
-		}
-		else { //1vsAi
-			RealPlayer p1;
-			AiPlayer p2;
-			briscola = inizializzaGioco(mazzo, p1, p2);
-			realVSAi(mazzo, p1, p2, briscola);
-		}
 
 
 	}
 	private: System::Void cartaPlayer1_Click(System::Object^ sender, System::EventArgs^ e) {
-		
+		if (deck->getDim() > 1) {
+			cartaPlayer1->Enabled = false;
+			cartaPlayer2->Enabled = false;
+			cartaPlayer3->Enabled = false;
+			p1->giocaCarta(0);
+			this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p1->getCartaGiocata().getPath().c_str()))];
+			showCarte(p1->getMazzo());
+			this->carteGiocate->Refresh();
+			Sleep(1000);
+			if (!turnoComputer) {
+				p2->giocaCarta(0);
+				this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p2->getCartaGiocata().getPath().c_str()))];
+				this->carteGiocate->Refresh();
+			}
+
+
+			int i = 0;
+			Carta scelta = p2->scegliCarta();
+			for (i = 0; i < p2->getMazzo().getDim() && scelta != p2->getMazzo().getCarta(i); i++);
+			Carta cartaVincente = p1->getCartaGiocata().confronta(p2->getCartaGiocata(), *briscola);
+			if (cartaVincente != p1->getCartaGiocata()) {
+				turnoComputer = true;
+				p2->setPunteggio(p2->getPunteggio() + p2->getCartaGiocata().getPunteggio() + p1->getCartaGiocata().getPunteggio());
+				Sleep(1000);
+				p1->getMazzo().setCartaPos(--*deck, 0);
+				p2->getMazzo().setCartaPos(--*deck, 0);
+				this->carteGiocate->BackgroundImage = imageList1->Images[0];
+				showCarte(p1->getMazzo());
+				this->carteGiocate->Refresh();
+				p2->giocaCarta(0);
+				this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p2->getCartaGiocata().getPath().c_str()))];
+				this->carteGiocate->Refresh();
+			}
+			else {
+				p1->setPunteggio(p1->getPunteggio() + p1->getCartaGiocata().getPunteggio() + p2->getCartaGiocata().getPunteggio());
+				turnoComputer = false;
+				Sleep(1000);
+				p1->getMazzo().setCartaPos(--*deck, 0);
+				p2->getMazzo().setCartaPos(--*deck, 0);
+				this->carteGiocate->BackgroundImage = imageList1->Images[0];
+				showCarte(p1->getMazzo());
+				this->carteGiocate->Refresh();
+			}
+
+		}
+		else if (p1->getMazzo().getDim() > 1) {
+			p1->giocaCarta(0);
+			p2->giocaCarta(0);
+			int i = 0;
+			Carta scelta = p2->scegliCarta();
+			for (i = 0; i < p2->getMazzo().getDim() && scelta != p2->getMazzo().getCarta(i); i++);
+			Carta cartaVincente = p1->getCartaGiocata().confronta(p2->getCartaGiocata(), *briscola);
+			if (cartaVincente != p1->getCartaGiocata()) {
+				p2->setPunteggio(p2->getPunteggio() + p2->getCartaGiocata().getPunteggio() + p1->getCartaGiocata().getPunteggio());
+			}
+			else {
+				p1->setPunteggio(p1->getPunteggio() + p1->getCartaGiocata().getPunteggio() + p2->getCartaGiocata().getPunteggio());
+			}
+		}
+		else {
+			(p1->getPunteggio() > p2->getPunteggio()) ? MessageBox::Show("Hai vinto!,\n Punti totali: " + p1->getPunteggio() + "Punti avversario:  " + p2->getPunteggio()) : MessageBox::Show("Hai perso!\n Punti totali: " + p1->getPunteggio() + "Punti avversario:  " + p2->getPunteggio());
+		}
+
+		cartaPlayer1->Enabled = true;
+		cartaPlayer2->Enabled = true;
+		cartaPlayer3->Enabled = true;
+
+
 	}
 
 	private: System::Void cartaPlayer2_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (deck->getDim() > 1) {
+			cartaPlayer1->Enabled = false;
+			cartaPlayer2->Enabled = false;
+			cartaPlayer3->Enabled = false;
+			p1->giocaCarta(1);
+			this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p1->getCartaGiocata().getPath().c_str()))];
+			showCarte(p1->getMazzo());
+			this->carteGiocate->Refresh();
+			Sleep(1000);
+			if (!turnoComputer) {
+				p2->giocaCarta(1);
+				this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p2->getCartaGiocata().getPath().c_str()))];
+				this->carteGiocate->Refresh();
+			}
+
+
+			int i = 0;
+			Carta scelta = p2->scegliCarta();
+			for (i = 0; i < p2->getMazzo().getDim() && scelta != p2->getMazzo().getCarta(i); i++);
+			Carta cartaVincente = p1->getCartaGiocata().confronta(p2->getCartaGiocata(), *briscola);
+			if (cartaVincente != p1->getCartaGiocata()) {
+				turnoComputer = true;
+				p2->setPunteggio(p2->getPunteggio() + p2->getCartaGiocata().getPunteggio() + p1->getCartaGiocata().getPunteggio());
+				Sleep(1000);
+				p1->getMazzo().setCartaPos(--*deck, 1);
+				p2->getMazzo().setCartaPos(--*deck, 1);
+				this->carteGiocate->BackgroundImage = imageList1->Images[0];
+				showCarte(p1->getMazzo());
+				this->carteGiocate->Refresh();
+				p2->giocaCarta(1);
+				this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p2->getCartaGiocata().getPath().c_str()))];
+				this->carteGiocate->Refresh();
+			}
+			else {
+				p1->setPunteggio(p1->getPunteggio() + p1->getCartaGiocata().getPunteggio() + p2->getCartaGiocata().getPunteggio());
+				turnoComputer = false;
+				Sleep(1000);
+				p1->getMazzo().setCartaPos(--*deck, 1);
+				p2->getMazzo().setCartaPos(--*deck, 1);
+				this->carteGiocate->BackgroundImage = imageList1->Images[0];
+				showCarte(p1->getMazzo());
+				this->carteGiocate->Refresh();
+			}
+
+		}
+		else if (p1->getMazzo().getDim() > 1) {
+			p1->giocaCarta(1);
+			p2->giocaCarta(1);
+			int i = 0;
+			Carta scelta = p2->scegliCarta();
+			for (i = 0; i < p2->getMazzo().getDim() && scelta != p2->getMazzo().getCarta(i); i++);
+			Carta cartaVincente = p1->getCartaGiocata().confronta(p2->getCartaGiocata(), *briscola);
+			if (cartaVincente != p1->getCartaGiocata()) {
+				p2->setPunteggio(p2->getPunteggio() + p2->getCartaGiocata().getPunteggio() + p1->getCartaGiocata().getPunteggio());
+			}
+			else {
+				p1->setPunteggio(p1->getPunteggio() + p1->getCartaGiocata().getPunteggio() + p2->getCartaGiocata().getPunteggio());
+			}
+		}
+		else {
+			(p1->getPunteggio() > p2->getPunteggio()) ? MessageBox::Show("Hai vinto!,\n Punti totali: " + p1->getPunteggio() + "Punti avversario:  " + p2->getPunteggio()) : MessageBox::Show("Hai perso!\n Punti totali: " + p1->getPunteggio() + "Punti avversario:  " + p2->getPunteggio());
+		}
+
+		cartaPlayer1->Enabled = true;
+		cartaPlayer2->Enabled = true;
+		cartaPlayer3->Enabled = true;
+
 
 	}
 
 	private: System::Void cartaPlayer3_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (deck->getDim() > 1) {
+			cartaPlayer1->Enabled = false;
+			cartaPlayer2->Enabled = false;
+			cartaPlayer3->Enabled = false;
+			p1->giocaCarta(2);
+			this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p1->getCartaGiocata().getPath().c_str()))];
+			showCarte(p1->getMazzo());
+			this->carteGiocate->Refresh();
+			Sleep(1000);
+			if (!turnoComputer) {
+				p2->giocaCarta(2);
+				this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p2->getCartaGiocata().getPath().c_str()))];
+				this->carteGiocate->Refresh();
+			}
+
+
+			int i = 0;
+			Carta scelta = p2->scegliCarta();
+			for (i = 0; i < p2->getMazzo().getDim() && scelta != p2->getMazzo().getCarta(i); i++);
+			Carta cartaVincente = p1->getCartaGiocata().confronta(p2->getCartaGiocata(), *briscola);
+			if (cartaVincente != p1->getCartaGiocata()) {
+				turnoComputer = true;
+				p2->setPunteggio(p2->getPunteggio() + p2->getCartaGiocata().getPunteggio() + p1->getCartaGiocata().getPunteggio());
+				Sleep(1000);
+				p1->getMazzo().setCartaPos(--*deck, 2);
+				p2->getMazzo().setCartaPos(--*deck, 2);
+				this->carteGiocate->BackgroundImage = imageList1->Images[0];
+				showCarte(p1->getMazzo());
+				this->carteGiocate->Refresh();
+				p2->giocaCarta(2);
+				this->carteGiocate->BackgroundImage = imageList1->Images[imageList1->Images->IndexOfKey(gcnew String(p2->getCartaGiocata().getPath().c_str()))];
+				this->carteGiocate->Refresh();
+			}
+			else {
+				p1->setPunteggio(p1->getPunteggio() + p1->getCartaGiocata().getPunteggio() + p2->getCartaGiocata().getPunteggio());
+				turnoComputer = false;
+				Sleep(1000);
+				p1->getMazzo().setCartaPos(--*deck, 2);
+				p2->getMazzo().setCartaPos(--*deck, 2);
+				this->carteGiocate->BackgroundImage = imageList1->Images[0];
+				showCarte(p1->getMazzo());
+				this->carteGiocate->Refresh();
+			}
+
+		}
+		else if (p1->getMazzo().getDim() > 1) {
+			p1->giocaCarta(2);
+			p2->giocaCarta(2);
+			int i = 0;
+			Carta scelta = p2->scegliCarta();
+			for (i = 0; i < p2->getMazzo().getDim() && scelta != p2->getMazzo().getCarta(i); i++);
+			Carta cartaVincente = p1->getCartaGiocata().confronta(p2->getCartaGiocata(), *briscola);
+			if (cartaVincente != p1->getCartaGiocata()) {
+				p2->setPunteggio(p2->getPunteggio() + p2->getCartaGiocata().getPunteggio() + p1->getCartaGiocata().getPunteggio());
+			}
+			else {
+				p1->setPunteggio(p1->getPunteggio() + p1->getCartaGiocata().getPunteggio() + p2->getCartaGiocata().getPunteggio());
+			}
+		}
+		else {
+			(p1->getPunteggio() > p2->getPunteggio()) ? MessageBox::Show("Hai vinto!,\n Punti totali: " + p1->getPunteggio() + "Punti avversario:  " + p2->getPunteggio()) : MessageBox::Show("Hai perso!\n Punti totali: " + p1->getPunteggio() + "Punti avversario:  " + p2->getPunteggio());
+		}
+
+
+		cartaPlayer1->Enabled = true;
+		cartaPlayer2->Enabled = true;
+		cartaPlayer3->Enabled = true;
+
 
 	}
 };

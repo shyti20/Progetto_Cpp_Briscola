@@ -10,49 +10,124 @@ Napoletano::~Napoletano() {
 }
 
 void Napoletano::inizializza() { //inizializza il mazzo di carte
-    string numeriCarte[] = {"", "due", "tre", "quattro", "cinque", "sei", "sette"};
-    for (int i = 0; i < dim; i++) {
-        int temp = (i + 1) % 10;
-        c[i].setNumero(temp);
-        switch (temp) {
-            case 1:
-                c[i].setNome("asso");
-                c[i].setPunteggio(11);
-                break;
-            case 8:
-                c[i].setNome("fante");
-                c[i].setPunteggio(2);
-                break;
-            case 9:
-                c[i].setNome("cavallo");
-                c[i].setPunteggio(3);
-                break;
-            case 0:
-                c[i].setNome("re");
-                c[i].setPunteggio(4);
-                break;
-            case 3:
-                c[i].setNome("tre");
-                c[i].setPunteggio(10);
-                break;
-            default:
-                c[i].setNome(numeriCarte[temp - 1]);
-                c[i].setPunteggio(0);
+    string numeriCarte[] = { "", "due", "tre", "quattro", "cinque", "sei", "sette" };
+    for (int i = 0; i < 10; i++) {
+        switch (i % 10) {
+        case 1:
+            c[i].setNome("asso");
+            c[i].setPunteggio(11);
+            break;
+        case 8:
+            c[i].setNome("fante");
+            c[i].setPunteggio(2);
+            break;
+        case 9:
+            c[i].setNome("cavallo");
+            c[i].setPunteggio(3);
+            break;
+        case 0:
+            c[i].setNome("re");
+            c[i].setPunteggio(4);
+            break;
+        case 3:
+            c[i].setNome("tre");
+            c[i].setPunteggio(10);
+            break;
+        default:
+            c[i].setNome(numeriCarte[(i - 1) % 10]);
+            c[i].setPunteggio(0);
         }
-        switch (i % 4) {
-            case 0:
-                c[i].setSeme("Bastoni");
-                break;
-            case 1:
-                c[i].setSeme("Spade");
-                break;
-            case 2:
-                c[i].setSeme("Denari");
-                break;
-            case 3:
-                c[i].setSeme("Coppe");
-                break;
+        c[i].setSeme("Bastoni");
+        c[i].setPath(c[i].getNome(), c[i].getSeme());
+    }
+
+    for (int i = 10; i < 20; i++) {
+        switch (i % 10) {
+        case 1:
+            c[i].setNome("asso");
+            c[i].setPunteggio(11);
+            break;
+        case 8:
+            c[i].setNome("fante");
+            c[i].setPunteggio(2);
+            break;
+        case 9:
+            c[i].setNome("cavallo");
+            c[i].setPunteggio(3);
+            break;
+        case 0:
+            c[i].setNome("re");
+            c[i].setPunteggio(4);
+            break;
+        case 3:
+            c[i].setNome("tre");
+            c[i].setPunteggio(10);
+            break;
+        default:
+            c[i].setNome(numeriCarte[(i - 1) % 10]);
+            c[i].setPunteggio(0);
         }
+        c[i].setSeme("Spade");
+        c[i].setPath(c[i].getNome(), c[i].getSeme());
+    }
+
+    for (int i = 20; i < 30; i++) {
+        switch (i % 10) {
+        case 1:
+            c[i].setNome("asso");
+            c[i].setPunteggio(11);
+            break;
+        case 8:
+            c[i].setNome("fante");
+            c[i].setPunteggio(2);
+            break;
+        case 9:
+            c[i].setNome("cavallo");
+            c[i].setPunteggio(3);
+            break;
+        case 0:
+            c[i].setNome("re");
+            c[i].setPunteggio(4);
+            break;
+        case 3:
+            c[i].setNome("tre");
+            c[i].setPunteggio(10);
+            break;
+        default:
+            c[i].setNome(numeriCarte[(i - 1) % 10]);
+            c[i].setPunteggio(0);
+        }
+        c[i].setSeme("Denari");
+        c[i].setPath(c[i].getNome(), c[i].getSeme());
+    }
+
+    for (int i = 30; i < 40; i++) {
+        switch (i % 10) {
+        case 1:
+            c[i].setNome("asso");
+            c[i].setPunteggio(11);
+            break;
+        case 8:
+            c[i].setNome("fante");
+            c[i].setPunteggio(2);
+            break;
+        case 9:
+            c[i].setNome("cavallo");
+            c[i].setPunteggio(3);
+            break;
+        case 0:
+            c[i].setNome("re");
+            c[i].setPunteggio(4);
+            break;
+        case 3:
+            c[i].setNome("tre");
+            c[i].setPunteggio(10);
+            break;
+        default:
+            c[i].setNome(numeriCarte[(i - 1) % 10]);
+            c[i].setPunteggio(0);
+        }
+        c[i].setSeme("Coppe");
         c[i].setPath(c[i].getNome(), c[i].getSeme());
     }
 }
@@ -88,15 +163,15 @@ void Napoletano::operator+(const Carta& carta) {
 
 Carta Napoletano::operator--() {
     //estrae una carta random dal mazzo
-    int nRand = rand() % 40;
-    Carta cartaEstratta = c[nRand];
-    Carta* temp = new Carta[dim];
+    int nRand = rand() % dim;
     if (dim == 0) {
         return Carta();
     }
-    Carta temp1 = c[nRand];
+    Carta cartaEstratta = c[nRand];
+    Carta* temp = new Carta[dim];
+
     c[nRand] = c[dim - 1];
-    c[dim - 1] = temp1;
+    c[dim - 1] = cartaEstratta;
 
     for (int i = 0; i < dim; i++) {
         temp[i] = c[i];
@@ -127,4 +202,20 @@ Napoletano& Napoletano::operator=(const Napoletano& mazzo) {
 
     return (*this);
 
+}
+
+void Napoletano::setMazzo(Napoletano deck) {
+    if (dim > 0) {
+        delete[] c;
+        dim = deck.dim;
+        for (int i = 0; i < dim; i++) {
+            c[i] = deck.getCarta(i);
+        }
+    } else {
+        c = nullptr;
+    }
+}
+
+void Napoletano::setCartaPos(Carta& temp, int pos) {
+    c[pos] = temp;
 }

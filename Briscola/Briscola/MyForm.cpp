@@ -12,9 +12,11 @@ using namespace System::Drawing;
 Briscola::MyForm::MyForm(void)
 {
 	InitializeComponent();
-	//
-	//TODO: Add the constructor code here
-	//
+	deck = new Napoletano();
+	briscola = new Carta();
+	p1 = new RealPlayer();
+	p2 = new AiPlayer();
+	turnoComputer = false;
 }
 
 Briscola::MyForm::~MyForm() {
@@ -28,9 +30,6 @@ void Briscola::MyForm::showCarte(Napoletano& temp) {
 	int n1 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(0).getPath().c_str()));
 	int n2 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(1).getPath().c_str()));
 	int n3 = this->imageList1->Images->IndexOfKey(gcnew String(temp.getCarta(2).getPath().c_str()));
-	Carta c1 = temp.getCarta(0);
-	Carta c2 = temp.getCarta(1);
-	Carta c3 = temp.getCarta(2);
 
 	(n1 == -1) ? this->cartaPlayer1->BackgroundImage = imageList1->Images[0] : this->cartaPlayer1->BackgroundImage = imageList1->Images[n1];
 	this->cartaPlayer1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
@@ -45,14 +44,14 @@ void Briscola::MyForm::showCarte(Napoletano& temp) {
 	this->cartaPlayer3->Refresh();
 }
 
-Carta Briscola::MyForm::inizializzaGioco(Napoletano& mazzo, Player& p1, Player& p2) {
+Carta Briscola::MyForm::inizializzaGioco(Napoletano& mazzo, RealPlayer& p1, AiPlayer& p2) {
 	srand(time(NULL));
 		mazzo.inizializza();
 		for (int i = 0; i < 3; i++) {
 			Carta& temp = (--mazzo);
 			Carta carta = temp;
-			p1.setCarta(carta);
 
+			p1.setCarta(carta);
 			temp = (--mazzo);
 			carta = temp;
 			p2.setCarta(carta);
@@ -64,20 +63,9 @@ Carta Briscola::MyForm::inizializzaGioco(Napoletano& mazzo, Player& p1, Player& 
 		
 		showCarte(p1.getMazzo());
 		int n =  this->imageList1->Images->IndexOfKey(gcnew String(briscola.getPath().c_str()));
-		(n == -1) ? this->Briscola->BackgroundImage = imageList1->Images[0] : this->Briscola->BackgroundImage = imageList1->Images[n];
-		this->Briscola->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-		this->Briscola->BackgroundImage->RotateFlip(System::Drawing::RotateFlipType::Rotate270FlipNone);
+		(n == -1) ? this->BriscolaBox->BackgroundImage = imageList1->Images[0] : this->BriscolaBox->BackgroundImage = imageList1->Images[n];
+		this->BriscolaBox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+		this->BriscolaBox->BackgroundImage->RotateFlip(System::Drawing::RotateFlipType::Rotate270FlipNone);
 
 		return briscola;
-}
-
-void Briscola::MyForm::realVSReal(Napoletano& mazzo, Player& p1, Player& p2, Carta& briscola) {
-	
-}
-
-void Briscola::MyForm::realVSAi(Napoletano& mazzo, Player& p1, Player& p2, Carta& briscola) {
-	System::EventArgs^ eventArgs = gcnew EventArgs();
-	
-
-	
 }

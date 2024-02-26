@@ -1,21 +1,23 @@
 #include "aiplayer.h"
 
 AiPlayer::AiPlayer() {
-
+	mazzo.setDim(0);
 }
 AiPlayer::~AiPlayer() {
 
 }
-bool AiPlayer::giocaCarta(int pos) {
-	return true;
+void AiPlayer::giocaCarta(int pos) {
+	cartaGiocata = scegliCarta();
 }
-Carta AiPlayer::scegliCarta(Napoletano& deck) {
+
+Carta AiPlayer::scegliCarta() {
 	Carta a;
-	int pos = rand() % 3;
+
+	int pos = rand() % mazzo.getDim();
 	a = mazzo.getCarta(pos);
 	return a;
 }
 
 void AiPlayer::setCarta(Carta& carta) {
-	mazzo + carta;
+	this->mazzo + carta;
 }

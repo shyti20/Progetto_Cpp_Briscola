@@ -18,39 +18,9 @@ bool MazzoDiCarte::operator-(Carta carta) {
     if (i >= dim) return false;
     Carta temp;
     c[i] = temp;
-    /*for (int j = i; j < dim - 1; j++) {
-        c[j] = c[j + 1];
-    }
-    Carta* temp = new Carta[dim - 1];
-    for (int j = 0; j < dim - 1; j++) {
-        temp[j] = c[j];
-    }
-    dim--;
-    delete[] c;
-    c = new Carta[dim];
-    for (int j = 0; j < dim; j++) {
-        c[j] = temp[j];
-    }
-    delete[] temp;*/
     return true;
 }
 
-
-/*void MazzoDiCarte::setDim(int dim) { //pericoloso
-    if (c != nullptr) {
-        delete[] c;
-    }
-    this->dim = dim;
-    if (dim != 0) {
-        c = new Carta[dim];
-    }
-    else {
-        c = nullptr;
-    }
-
-
-
-}*/
 
 void MazzoDiCarte::setDim(int dim) {
     if (c != nullptr) {
@@ -66,7 +36,7 @@ void MazzoDiCarte::setDim(int dim) {
 }
 
 Carta MazzoDiCarte::getCarta(int pos) {
-    if (dim != 0 && pos <= dim) {
+    if (dim >= 0 && pos < dim && pos >= 0 ) {
         return c[pos];
     }
     Carta c;

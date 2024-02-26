@@ -12,6 +12,8 @@ class Napoletano : public MazzoDiCarte {
         void operator+(const Carta& carta);
         Carta operator--();
         Napoletano& operator=(const Napoletano& mazzo);
+        void setMazzo(Napoletano deck);
+        void setCartaPos(Carta& temp, int pos);
 };
 
 #endif
